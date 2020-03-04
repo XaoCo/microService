@@ -1,8 +1,14 @@
 package com.cpllz.the16th.util;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
 /**
  * @auther CPP
- * @date 2020/2/26 18:02
+ * @date 2020/3/3 23:38
  * 　　　　　　　 ┏┓       ┏┓+ +
  * 　　　　　　　┏┛┻━━━━━━━┛┻┓ + +
  * 　　　　　　　┃　　　　　　 ┃
@@ -25,13 +31,25 @@ package com.cpllz.the16th.util;
  * 　　　　　　　　　 ┃┫┫　 ┃┫┫
  * 　　　　　　　　　 ┗┻┛　 ┗┻┛+ + + +
  */
-public class Demo2 {
+@Configuration
+public class CorsConfig {
+    private CorsConfiguration buildConfig() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        /**
+         * 1、允许任何域名使用
+         * 2、允许任何头
+         * 3、允许任何方法（post、get等）
+         */
+        corsConfiguration.addAllowedOrigin("*"); // 1
+        corsConfiguration.addAllowedHeader("*"); // 2
+        corsConfiguration.addAllowedMethod("*"); // 3
+        return corsConfiguration;
+    }
 
-    public static void main(String[] args) {
-        for (int i = 1; i < 100; i++) {
-            String string = "INSERT INTO `user` VALUES ("+i+",'cp','"+i+"','"+i+"@qq.com');";
-
-            System.out.println(string);
-        }
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", buildConfig()); // 4
+        return new CorsFilter(source);
     }
 }

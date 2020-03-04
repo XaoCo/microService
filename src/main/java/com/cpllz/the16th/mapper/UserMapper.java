@@ -39,14 +39,14 @@ import java.util.List;
  *  加上@Mapper 注解，不需要写 .xml文件,如下写法
  *
  */
-@Mapper
+//@Mapper
 public interface UserMapper {
 
-        @Select("SELECT id,name,pwd,email FROM User where id=18")
-    List<User> getAllUser();
-
-        @Select("select * from User where name = #{name}")
-    List<User> getUserByName(@Param("name") String name);
+//        @Select("SELECT id,name,pwd,email FROM User where id=18")
+//    List<User> getAllUser();
+//
+//        @Select("select * from User where name = #{name}")
+//    List<User> getUserByName(@Param("name") String name);
 
 
     /**
@@ -54,7 +54,7 @@ public interface UserMapper {
      *  并且得在 application.properties里面加上
      *  mybatis.mapper-locations = classpath:mapper/*Mapper.xml
      */
-//    List<User> getAllUser();
-//
-//    List<User> getUserByName(@Param("name") String name);
+    List<User> getAllUser();
+
+    List<User> getUserByName(@Param("name") String name);
 }
