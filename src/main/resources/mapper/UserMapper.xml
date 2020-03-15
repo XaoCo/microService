@@ -18,4 +18,8 @@
     <select id="getUserByName" resultMap="userRestMap1">
         select * from User where name =#{name}
     </select>
+
+    <select id="getUserById" resultMap="userRestMap1">
+        select * from User where id =#{id}
+    </select>
 </mapper>

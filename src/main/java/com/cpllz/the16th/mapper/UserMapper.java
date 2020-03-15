@@ -57,4 +57,5 @@ public interface UserMapper {
     List<User> getAllUser();
 
     List<User> getUserByName(@Param("name") String name);
+    List<User> getUserById(@Param("id") int id);
 }

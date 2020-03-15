@@ -1,12 +1,14 @@
-package com.cpllz.the16th.service;
+package com.cpllz.the16th.util;
 
-import com.cpllz.the16th.pojo.User;
+import com.cpllz.the16th.pojo.UploadFileStatus;
 
-import java.util.List;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 /**
  * @auther CPP
- * @date 2020/2/27 15:58
+ * @date 2020/3/13 0:03
  * 　　　　　　　 ┏┓       ┏┓+ +
  * 　　　　　　　┏┛┻━━━━━━━┛┻┓ + +
  * 　　　　　　　┃　　　　　　 ┃
@@ -29,10 +31,25 @@ import java.util.List;
  * 　　　　　　　　　 ┃┫┫　 ┃┫┫
  * 　　　　　　　　　 ┗┻┛　 ┗┻┛+ + + +
  */
-public interface UserService {
-    List<User> getAllUser();
+public class Demo {
+    public static void main(String[] args) {
+        File file = new File("D:/SFTP/log1.log");
+        UploadFileStatus fileStatus = new UploadFileStatus();
+        // 上传到服务器后的文件名
+        fileStatus.setFileName("test2");
+        // 上传到服务器的哪个位置
+        fileStatus.setFilePath("/root/myFile/");
+        // 文件的大小
+        fileStatus.setFileSize(file.length());
+        // 文件的类型
+        fileStatus.setFileType("log");
+        try {
+            fileStatus.setInputStream(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
-    List<User> getUserByName(String name);
-    List<User> getUserById(int id);
-
+        String result = HttpUtils.postFile("http://118.25.125.187:8000/upload", fileStatus);
+        System.out.println(result);
+    }
 }
